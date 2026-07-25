@@ -1,0 +1,11 @@
+This is my simple attempt towards making a website where you can keep track of your habits.
+Functionality :
+1. add habits
+2. maintain streak
+3. on varies milestones earn various rewards 
+and more soon
+
+Future scope :
+1. make this concept a social media platform 
+2. you can share your progress with others
+3. Varies achievements to show others how dedicted you are towards your goal
