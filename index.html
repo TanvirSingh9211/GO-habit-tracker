@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Go - a habit tracker</title>
 </head>
+
 <body>
-    <center><h1><u>GO - Habit Tracker</u></h1></center>
+    <div id="heading">
+        <h1>GO - Habit Tracker</h1>
+    </div>
 
-    <h4>Current Habits :</h4>
-    <ul id="habitlist"></ul>
+    <div>
+        <h4>Current Habits :</h4>
+        <ul id="habitlist"></ul>
+    </div>
 
-    <br>
-    <p>Add a habit : </p> 
-    <input type="text" id="form"> <button onclick=addHabits()>save</button>
-
+    <div>
+        <p>Add a habit : </p>
+        <input type="text" id="form"> <button onclick=addHabits()>save</button>
+    </div>
     <script src="script.js"></script>
 </body>
+
 </html>

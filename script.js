@@ -22,6 +22,13 @@ function deleteHabit(habit){
 
 }
 
+function editHabits(habit){
+   let newname = prompt("enter new habit");
+   if(newname!==null && newname.trim().length!==0){
+      habit.name  = newname;
+   }
+}
+
 function displayHabits(){
    let habitList = document.getElementById('habitlist');
    habits.forEach((habit)=>{
@@ -29,8 +36,10 @@ function displayHabits(){
       let ele = document.createElement('li');
       let btn = document.createElement('button');
       let del = document.createElement('button');
+      let edit =  document.createElement('button');
       btn.textContent = "Done";
       del.textContent = "🗑️";
+      edit.textContent = "⚙️";
 
       con.textContent = habit.name + "     " +habit.streakCount+"  🔥";
       btn.onclick = ()=>{
@@ -41,8 +50,12 @@ function displayHabits(){
          deleteHabit(habit);
          renderHabits();
       }
+      edit.onclick = ()=>{
+         editHabits(habit);
+         renderHabits();
+      }
       
-      ele.append(con,btn,del);
+      ele.append(con,btn,del,edit);
      
       habitList.appendChild(ele);
    })
@@ -55,11 +68,11 @@ function countStreak(habit){
       habit.lastCompleted = true ;
       habit.streakCount = 1;
    }
-   else if(habit.lastCompleted===true && habit.lastDone.getDate()-today.getDate()===1){
+   else if(habit.lastCompleted===true && (habit.lastDone.getTime()-today.getTime())/1000*60*24*60===1){
       habit.streakCount+=1;
       habit.lastDone = new Date();
    }
-   else if(habit.lastDone.getDate()-today.getDate()===0){
+   else if((habit.lastDone.getTime()-today.getTime())/1000*60*24*60<=1){
       // nothing
    }
    else{
