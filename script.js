@@ -1,19 +1,44 @@
 //Logic of my web app
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
+
+
+let input = document.getElementById("form");
+input.addEventListener("keydown",(event)=>{
+      if(event.key==='Enter'){
+         event.preventDefault();
+         addHabits();
+      }
+   }
+);
+
+function ifDuplicate(hab){
+   for(let i=0;i<habits.length;i++){
+      if(habits[i].name === hab){
+         return false;
+      }
+   }
+   return true;
+}
+
 function addHabits(){
-   let input = document.getElementById("form");
-   let habit  = input.value ;
-   if(habit.trim().length===0) return;
-   habits.push({
-      name : habit,
-      lastDone : null,
-      lastCompleted : false,
-      streakCount : 0 
-   });
-   savelocal();
-   renderHabits();
-   input.value = "";
+   let hab  = input.value ;
+   if(hab.trim().length===0) return;
+   if(ifDuplicate(hab)){
+      habits.push({
+         name : hab,
+         lastDone : null,
+         lastCompleted : false,
+         streakCount : 0 
+      });
+      savelocal();
+      renderHabits();
+      input.value = "";
+   }
+   else{
+      alert("This habit already exists !!");
+      input.value = "";
+   }
 }
 
 function deleteHabit(habit){
@@ -30,8 +55,15 @@ function editHabits(habit){
 }
 
 function displayHabits(){
+
    let habitList = document.getElementById('habitlist');
+   let placehold = document.getElementById('habitplaceholder');
+   if(habits.length===0){
+      placehold.textContent = "No habits yet. Add habits";
+   }
+
    habits.forEach((habit)=>{
+      placehold.textContent = "";
       let con = document.createElement('pre');
       let ele = document.createElement('li');
       let btn = document.createElement('button');
@@ -47,8 +79,10 @@ function displayHabits(){
          renderHabits();
       };
       del.onclick = ()=>{
-         deleteHabit(habit);
-         renderHabits();
+        if(confirm("Delete?")){
+            deleteHabit(habit);
+            renderHabits();
+         }
       }
       edit.onclick = ()=>{
          editHabits(habit);
