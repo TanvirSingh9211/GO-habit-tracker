@@ -2,7 +2,7 @@ This is my simple attempt towards making a website where you can keep track of y
 Functionality :
 1. add habits
 2. maintain streak
-3. on varies milestones earn various rewards 
+3. on various milestones earn various rewards 
 and more soon
 
 Future scope :
