@@ -8,4 +8,4 @@ and more soon
 Future scope :
 1. make this concept a social media platform 
 2. you can share your progress with others
-3. Various achievements to show others how dedicted you are towards your goal
+3. Various achievements to show others how dedicated you are towards your goal
