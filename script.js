@@ -72,6 +72,10 @@ function displayHabits(){
       btn.textContent = "Done";
       del.textContent = "🗑️";
       edit.textContent = "⚙️";
+      btn.classList.add('btn','push-btn');
+      del.classList.add('btn','push-btn');
+      edit.classList.add('btn','push-btn');
+      
 
       con.textContent = habit.name + "     " +habit.streakCount+"  🔥";
       btn.onclick = ()=>{
