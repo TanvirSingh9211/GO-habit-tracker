@@ -1,6 +1,12 @@
 /*design of my web app*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
 #heading {
+    font-family:inherit ;
     text-align: center;
+    font-weight: 700;
     background: rgba(45, 206, 72, 0.15); 
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -10,15 +16,20 @@
 }
 body{
     display:block;
+    font-family: 'Poppins', sans-serif;
     background-color:rgb(233, 222, 222) ;
 }
 
 #form {
+    font-family: inherit;
     border-radius: 10px;
     border-width: 1px;
+    margin-bottom: 10px;
 }
 
 .btn {
+    font-family: inherit;
+    font-weight: 400;
     height: 20px;
     background: rgba(103, 185, 80, 0.15); 
     backdrop-filter: blur(12px);
@@ -26,9 +37,58 @@ body{
     box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.15);
     border-radius: 16px;
     cursor: pointer;
-    margin: 3px;
+    margin: 10px;
 }
 .push-btn:active {
         transform: translateY(2px); 
         box-shadow: 0 1px #2d6a31; 
     }
+.btn:hover {
+    transform: scale(1.1);
+    border: 1px solid gray;
+}
+
+#outerPB {
+    margin-top: 10px;
+    height: 9px;
+    width: 500px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    display: inline-block;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 5px 15px 0 rgba(9, 9, 9, 0.35);
+}
+
+#innerPB {
+    height: 100%;
+    width: 0%;
+    border-radius: 5px;
+    background-color:rgba(45, 206, 72, 0.418); ;
+}
+
+#prog {
+    font-family: inherit;
+    font-weight: 600;
+    display: inline-block;
+    background: rgba(45, 206, 72, 0.15); 
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 5px 10px 0 rgba(9, 9, 9, 0.35);
+    border-radius: 16px;
+    padding: 2px 2px 2px 2px;
+}
+
+.habCard {
+    font-family: 'Poppins',sans-serif;
+    font-weight: 450;
+    width: 25%;
+    margin-top: 24px;
+    margin-left: 20px;
+    display: block;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    padding: 10px;
+}
