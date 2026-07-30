@@ -132,7 +132,12 @@ function nameFormat(str){
 }
 
 function countStreak(habit){
-   let today = new Date();
+   let today = new Date().getTime();
+   let lastDone = new Date(habit.lastDone).getTime();
+   let diff = (today-lastDone)/1000*60*24*60;
+   console.log(today);
+   console.log(lastDone);
+   console.log(diff);
    if(habit.lastDone===null || habit.lastCompleted===false){
       habit.lastDone = new Date();
       habit.lastCompleted = true ;
@@ -141,13 +146,13 @@ function countStreak(habit){
       savelocal();
      
    }
-   else if(habit.lastCompleted===true && (habit.lastDone.getTime()-today.getTime())/1000*60*24*60===1){
+   else if(habit.lastCompleted===true && (diff>=1 && diff<2)){
       habit.streakCount+=1;
       habit.completed = true
       habit.lastDone = new Date();
       savelocal();
    }
-   else if((habit.lastDone.getTime()-today.getTime())/1000*60*24*60<=1){
+   else if(diff<1){
       // nothing
    }
    else{

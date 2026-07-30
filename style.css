@@ -82,13 +82,27 @@ body{
 .habCard {
     font-family: 'Poppins',sans-serif;
     font-weight: 450;
-    width: 25%;
+    width: 200px;
     margin-top: 24px;
     margin-left: 20px;
-    display: block;
+    display:inline-block;
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
     border-radius: 16px;
     padding: 10px;
+}
+.habCard:hover {
+    box-shadow: 0px 0px 5px 10px rgba(235, 75, 222, 0.1); ;
+   animation: scaleup 0.5s ease-in-out 0.1s forwards;  
+   /* 2s duration and 1 sec delay forwards keep the scaled ver. (not let it shrink until mouse is removed) */
+}
+
+@keyframes scaleup {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
 }

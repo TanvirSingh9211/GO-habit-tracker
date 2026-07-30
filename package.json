@@ -1,0 +1,24 @@
+{
+  "name": "advancement-tracker",
+  "version": "1.0.0",
+  "description": "This is my simple attempt towards making a website where you can keep track of your habits.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TanvirSingh9211/GO-habit-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TanvirSingh9211/GO-habit-tracker/issues"
+  },
+  "homepage": "https://github.com/TanvirSingh9211/GO-habit-tracker#readme",
+  "dependencies": {
+    "dayjs": "^1.11.21"
+  }
+}
