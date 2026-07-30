@@ -1,4 +1,5 @@
 This is my simple attempt towards making a website where you can keep track of your habits.
+
 Functionality :
 1. add habits
 2. maintain streak
