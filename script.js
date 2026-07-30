@@ -1,4 +1,5 @@
 //Logic of my web app
+import dayjs from "dayjs";
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
 
@@ -9,6 +10,11 @@ input.addEventListener("keydown",(event)=>{
          event.preventDefault();
          addHabits();
       }
+   }
+);
+let addbtn  = document.getElementById("addbtn");
+   addbtn.addEventListener("click",()=>{
+      addHabits();
    }
 );
 
@@ -45,11 +51,12 @@ function addHabits(){
    if(ifDuplicate(hab)){
       habits.push({
          name : hab,
-         lastDone : null,
-         lastCompleted : false,
-         streakCount : 0 ,
-         completed : false
-      });
+         lastDone : undefined,      //omitted null as can cause crashes in dayjs
+         currStreak : 0 ,
+         completed : false,
+         createdAt : dayjs().format("YYYY-MM-DD"),
+         bestStreak : 0 
+   });
       savelocal();
       renderHabits();
       
@@ -104,7 +111,7 @@ function displayHabits(){
       
 
       name.textContent = habit.name;
-      streak.textContent = habit.streakCount + "🔥";
+      streak.textContent = habit.currStreak + "🔥";
       btn.onclick = ()=>{
          countStreak(habit);
          renderHabits();
@@ -132,33 +139,33 @@ function nameFormat(str){
 }
 
 function countStreak(habit){
-   let today = new Date().getTime();
-   let lastDone = new Date(habit.lastDone).getTime();
-   let diff = (today-lastDone)/1000*60*24*60;
-   console.log(today);
-   console.log(lastDone);
-   console.log(diff);
-   if(habit.lastDone===null || habit.lastCompleted===false){
-      habit.lastDone = new Date();
-      habit.lastCompleted = true ;
+   let today = dayjs();
+   let lastDone = dayjs(habit.lastDone);
+   let diff = today.diff(lastDone,"days");
+  
+   
+   if(habit.currStreak===0){
+      habit.lastDone = dayjs().format("YYYY-MM-DD HH:mm");
       habit.completed = true;
-      habit.streakCount = 1;
+      habit.currStreak = 1;
+      habit.bestStreak = Math.max(habit.bestStreak,habit.currStreak);
       savelocal();
      
    }
-   else if(habit.lastCompleted===true && (diff>=1 && diff<2)){
-      habit.streakCount+=1;
+   else if(diff===1){
+      habit.currStreak+=1;
       habit.completed = true
-      habit.lastDone = new Date();
+      habit.lastDone = dayjs().format("YYYY-MM-DD HH:mm");
+      habit.bestStreak = Math.max(habit.bestStreak,habit.currStreak);
       savelocal();
    }
-   else if(diff<1){
-      // nothing
+   else if(diff===0){
+     alert("This task is already completted for Today !");
    }
    else{
-      habit.lastCompleted = false;
-      habit.streakCount = 0;
-      completed  = false;
+      habit.currStreak = 1;
+      habit.completed  = true;
+      habit.lastDone =  dayjs().format("YYYY-MM-DD HH:mm");
       savelocal();
    }
   
