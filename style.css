@@ -1,9 +1,11 @@
 /*design of my web app*/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 
-#heading {
+
+.heading {
     font-family:inherit ;
     text-align: center;
     font-weight: 700;
@@ -12,8 +14,8 @@
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
     border-radius: 16px;
-
 }
+
 body{
     display:block;
     font-family: 'Poppins', sans-serif;
@@ -39,13 +41,72 @@ body{
     cursor: pointer;
     margin: 10px;
 }
-.push-btn:active {
-        transform: translateY(2px); 
-        box-shadow: 0 1px #2d6a31; 
-    }
-.btn:hover {
-    transform: scale(1.1);
-    border: 1px solid gray;
+#habitlist {
+    font-family: inherit;
+    display: flex;
+    border: 1px solid  rgba(255, 255, 255, 0.46);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.085);
+    flex-flow: row wrap;
+    padding : 20px;
+    gap : 12px
+    
+}
+.toplist {
+    display: flex;
+    justify-content: space-between;
+    gap:8px;
+}
+.habCard {
+    font-family: inherit;
+    font-weight: 450;
+    display:flex;
+    flex-direction: column;
+    width : 220px;
+    padding: 7px;
+    
+
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    
+}
+
+.nameCard {
+    padding: 5px;
+    box-shadow: 0px 0px 3px 5px rgba(132, 130, 130, 0.099);
+    border-radius: 16px;
+    width: min-content;
+    /* force ele to stay within parent size,let it shrink but not let it grow */
+    flex:0 1 auto; 
+    /*Force the element to obey parent boundaries instead of text size */
+    min-width: 0; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+  
+}
+.stCard {
+    text-align: right;
+    box-shadow: 0px 0px 3px 5px rgba(132, 130, 130, 0.099);
+    
+    font-size: smaller;
+    /* not let flexbox to shrink */
+    flex-shrink: 0;
+    border-radius: 16px;
+    padding: 5px;
+
+}
+
+.panel {
+    display:flex;
+    justify-content: space-between;
+   
+    margin-top: 8px;
+    border-radius: 12px;
+    box-shadow: 0px 2px 3px 5px rgba(132, 130, 130, 0.099);;
 }
 
 #outerPB {
@@ -67,7 +128,7 @@ body{
     background-color:rgba(45, 206, 72, 0.418); ;
 }
 
-#prog {
+.prog {
     font-family: inherit;
     font-weight: 600;
     display: inline-block;
@@ -79,30 +140,60 @@ body{
     padding: 2px 2px 2px 2px;
 }
 
-.habCard {
-    font-family: 'Poppins',sans-serif;
-    font-weight: 450;
-    width: 200px;
-    margin-top: 24px;
-    margin-left: 20px;
-    display:inline-block;
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
-    border-radius: 16px;
-    padding: 10px;
+/* All pseudo selectors */
+
+.push-btn:active {
+    transform: translateY(2px); 
+    box-shadow: 0 1px #2d6a31; 
 }
+
+.btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.222);
+}
+
 .habCard:hover {
-    box-shadow: 0px 0px 5px 10px rgba(235, 75, 222, 0.1); ;
-   animation: scaleup 0.5s ease-in-out 0.1s forwards;  
+    box-shadow: 0px 0px 5px 10px rgba(235, 75, 222, 0.058); ;
+    /* animation: scaleup 0.5s ease-in-out 0.1s forwards;   */
    /* 2s duration and 1 sec delay forwards keep the scaled ver. (not let it shrink until mouse is removed) */
 }
 
-@keyframes scaleup {
+.edit::before {
+    font-family: 'Material Icons';
+    content: '\e3c9'; /* The unique code for the pencil icon */
+    font-size: 20px;
+    color: #4a4a4a;  
+}
+.del::before {
+    font-family: 'Material Icons';
+    content: '\e872'; /* The Unicode code for the delete icon */
+    font-size: 20px;
+    color: #ff4d4d94; /* Red color for delete */
+    cursor: pointer;
+}
+.done::before {
+    font-family: 'Material Icons';
+    content: '\e5ca'; /* Unicode for 'done' icon */
+    font-size: 20px;
+    color: #2e7d32;
+}
+
+/* All animations */
+
+/* @keyframes scaleup { 
     from {
         transform: scale(1);
     }
     to {
         transform: scale(1.1);
     }
+} */
+
+/* future references */
+
+/* .btn + .del {
+    background-color: rgba(246, 153, 141, 0.441);
 }
+.btn + .edit {
+    background-color: rgba(0, 0, 255, 0.397);
+} */

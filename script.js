@@ -77,7 +77,12 @@ function deleteHabit(habit){
 function editHabits(habit){
    let newname = nameFormat(prompt("enter new habit"));
    if(newname!==null && newname.trim().length!==0){
-      habit.name  = newname;
+      if(ifDuplicate(newname)) {
+         habit.name  = newname;
+      }
+      else {
+         alert("This habit already exists !!");
+      }
    }
    savelocal();
 }
@@ -88,30 +93,45 @@ function displayHabits(){
    let placehold = document.getElementById('habitplaceholder');
    if(habits.length===0){
       placehold.textContent = "No habits yet. Add habits";
+      habitList.style.display = 'none';
+   }
+   else{
+       placehold.textContent = "";
+       habitList.style.display = 'flex';
    }
 
    habits.forEach((habit)=>{
-      placehold.textContent = "";
+     
       let name = document.createElement('div');
       let streak = document.createElement('div');
+      let toplist = document.createElement('div');
       let ele = document.createElement('div');
       let btn = document.createElement('button');
       let del = document.createElement('button');
       let edit =  document.createElement('button');
+      let panel = document.createElement('div');
+      panel.classList.add('panel');
       ele.classList.add('habCard');
-     
-      btn.textContent = "Done";
-      del.textContent = "🗑️";
-      edit.textContent = "⚙️";
-      btn.classList.add('btn','push-btn');
-      del.classList.add('btn','push-btn');
-      edit.classList.add('btn','push-btn');
+   
+      btn.classList.add('btn','push-btn','done');
+      del.classList.add('btn','push-btn','del');
+      edit.classList.add('btn','push-btn','edit');
       name.classList.add('nameCard');
       streak.classList.add('stCard');
+      toplist.classList.add('toplist');
       
+      if(habit.completed===true){
+         name.classList.add('notdone');
 
-      name.textContent = habit.name;
-      streak.textContent = habit.currStreak + "🔥";
+      }
+      else{
+         name.classList.add('notdone');
+      }
+    
+      name.innerText = habit.name+'\n'+habit.currStreak + "🔥";
+      streak.innerText = "Best Streak"+'\n'+habit.bestStreak+"🏆"
+      
+     
       btn.onclick = ()=>{
          countStreak(habit);
          renderHabits();
@@ -127,8 +147,9 @@ function displayHabits(){
          editHabits(habit);
          renderHabits();
       }
-      
-      ele.append(name,streak,btn,del,edit);
+      panel.append(btn,del,edit);
+      toplist.append(name,streak);
+      ele.append(toplist,panel);
      
       habitList.appendChild(ele);
    })
@@ -145,7 +166,7 @@ function countStreak(habit){
   
    
    if(habit.currStreak===0){
-      habit.lastDone = dayjs().format("YYYY-MM-DD HH:mm");
+      habit.lastDone = dayjs().format("YYYY-MM-DD");
       habit.completed = true;
       habit.currStreak = 1;
       habit.bestStreak = Math.max(habit.bestStreak,habit.currStreak);
@@ -155,7 +176,7 @@ function countStreak(habit){
    else if(diff===1){
       habit.currStreak+=1;
       habit.completed = true
-      habit.lastDone = dayjs().format("YYYY-MM-DD HH:mm");
+      habit.lastDone = dayjs().format("YYYY-MM-DD");
       habit.bestStreak = Math.max(habit.bestStreak,habit.currStreak);
       savelocal();
    }
