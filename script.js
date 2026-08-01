@@ -2,8 +2,20 @@
 import dayjs from "dayjs";
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
+//Everyday Reset
+habits.forEach((habit)=>{   
+   let diff = dayjs().diff(dayjs(habit.lastDone),"days");
+   if(diff>=1){
+      habit.completed = false;
+      if(diff>=2){
+         habit.currStreak = 0;
+      }
+   }
+   savelocal();
+})
 
 
+//Event listners
 let input = document.getElementById("form");
 input.addEventListener("keydown",(event)=>{
       if(event.key==='Enter'){
@@ -17,6 +29,8 @@ let addbtn  = document.getElementById("addbtn");
       addHabits();
    }
 );
+
+
 
 function ifDuplicate(hab){
    for(let i=0;i<habits.length;i++){
@@ -110,34 +124,44 @@ function displayHabits(){
       let del = document.createElement('button');
       let edit =  document.createElement('button');
       let panel = document.createElement('div');
+      let d_n = document.createElement('span');
+
+     
+
+     
+      
+
       panel.classList.add('panel');
       ele.classList.add('habCard');
-   
+      d_n.classList.add('material-icons');
       btn.classList.add('btn','push-btn','done');
       del.classList.add('btn','push-btn','del');
       edit.classList.add('btn','push-btn','edit');
       name.classList.add('nameCard');
       streak.classList.add('stCard');
       toplist.classList.add('toplist');
-      
-      if(habit.completed===true){
-         name.classList.add('notdone');
 
+
+      if(habit.completed===false){
+         d_n.innerText = "radio_button_unchecked";
+         d_n.classList.add('pri-icon');
       }
       else{
-         name.classList.add('notdone');
+         d_n.innerText = "task_alt";
+         d_n.classList.add('sec-icon');
       }
     
       name.innerText = habit.name+'\n'+habit.currStreak + "🔥";
       streak.innerText = "Best Streak"+'\n'+habit.bestStreak+"🏆"
-      
+      name.append(d_n);
      
       btn.onclick = ()=>{
          countStreak(habit);
          renderHabits();
       };
-      del.onclick = ()=>{
-        if(confirm("Delete?")){
+      del.onclick = async ()=>{
+         const result = await popConfirm();
+        if(result){
             
             deleteHabit(habit);
             renderHabits();
@@ -154,6 +178,42 @@ function displayHabits(){
       habitList.appendChild(ele);
    })
 }
+
+function popConfirm(){
+   let confirm = document.createElement('dialog');
+   let ok = document.createElement('button');
+   let cancel = document.createElement('button');
+   let msg = document.createElement('p');
+   confirm.classList.add('pop-confirm');
+   ok.classList.add('btn');
+   cancel.classList.add('btn');
+
+   msg.innerText = "Delete ❓";
+   ok.innerText = "OK";
+   cancel.innerText = "Cancel";
+
+   confirm.append(msg,ok,cancel);
+
+   document.body.append(confirm);
+
+   confirm.showModal();
+
+   return new Promise((resolve)=>{
+      ok.addEventListener('click',()=>{
+         confirm.close();
+         const success = true;
+         resolve(success); // Sends true/false back to whoever called outer function
+      },{once:true}); //removes event listener after done
+      cancel.addEventListener('click',()=>{
+         confirm.close();
+         const failure = false;
+         resolve(failure);
+      },{once:true});
+   })
+
+
+}
+
 function nameFormat(str){
    str = str.charAt(0).toUpperCase() + str.slice(1);
    return str;

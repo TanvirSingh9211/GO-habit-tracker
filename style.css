@@ -17,9 +17,10 @@
 }
 
 body{
-    display:block;
+    
     font-family: 'Poppins', sans-serif;
     background-color:rgb(233, 222, 222) ;
+    flex-direction: column;
 }
 
 #form {
@@ -56,7 +57,9 @@ body{
     display: flex;
     justify-content: space-between;
     gap:8px;
+    anchor-name: --popinfo;
 }
+
 .habCard {
     font-family: inherit;
     font-weight: 450;
@@ -86,8 +89,44 @@ body{
     overflow: hidden;
     text-overflow: ellipsis;
     
+    /* position: relative; keeps the popup localized to this item */
+    
   
 }
+.pop-confirm {
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+.pop-confirm>p {
+    font-family: 'Poppins',sans-serif;
+    color: rgb(0, 0, 0);
+    font-size: large;
+    font-weight: 500;
+}
+.pop-confirm::backdrop{
+    background-color: rgba(0, 0, 0, 0.297);
+    /* backdrop-filter: blur(2px); */
+}
+.material-icons {
+    font-size: 14px;
+    padding-left: 8px;
+
+}
+.pri-icon{
+    /* for not completed */
+    color: #db5613;
+
+}
+.sec-icon {
+    /* for completed */
+    color: #2e7d32;
+}
+
 .stCard {
     text-align: right;
     box-shadow: 0px 0px 3px 5px rgba(132, 130, 130, 0.099);
