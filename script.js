@@ -17,6 +17,8 @@ habits.forEach((habit)=>{
 
 //Event listners
 let input = document.getElementById("form");
+input.addEventListener('input',verifyInput());
+
 input.addEventListener("keydown",(event)=>{
       if(event.key==='Enter'){
          event.preventDefault();
@@ -30,6 +32,22 @@ let addbtn  = document.getElementById("addbtn");
    }
 );
 
+function verifyInput(){
+   
+   let value = input.value.trim();
+   let msg = document.getElementById("verifymsg");
+   if(value.length<3){
+      input.classList.add('not-verified');
+      msg.innerText = "name should be atleast 3 character long !";
+   }
+   else if(!ifDuplicate(value)){
+      input.classList.add('not-verified');
+      msg.innerText = "this name already exists";
+   }
+   else{
+      msg.innerText="";
+   }
+}
 
 
 function ifDuplicate(hab){
@@ -88,8 +106,9 @@ function deleteHabit(habit){
 
 }
 
-function editHabits(habit){
-   let newname = nameFormat(prompt("enter new habit"));
+ async function editHabits(habit){
+   let newname = await popEditname();
+   newname = nameFormat(newname);
    if(newname!==null && newname.trim().length!==0){
       if(ifDuplicate(newname)) {
          habit.name  = newname;
@@ -99,6 +118,60 @@ function editHabits(habit){
       }
    }
    savelocal();
+}
+function popEditname(){
+   let box = document.createElement('dialog');
+   let save = document.createElement('button');
+   let cancel = document.createElement('button');
+   let panel = document.createElement('div');
+   let p = document.createElement('p');
+   let input = document.createElement('input');
+
+   input.setAttribute('type','text');
+
+   input.classList.add('form');
+   box.classList.add('pop-box');
+   save.classList.add('btn');
+   cancel.classList.add('btn');
+
+   p.innerText = "Enter new name :";
+   save.innerText = "save";
+   cancel.innerText = "cancel";
+
+   panel.append(save,cancel);
+   box.append(p,input,panel);
+   document.body.append(box);
+
+   box.showModal();
+
+   
+      return new Promise((resolve)=>{
+         const controller = new AbortController();
+
+         const helper = (name)=>{
+            controller.abort();
+            box.close();
+            box.remove(); //remove dailog box from DOM to prevent clustering
+            resolve(name);
+         };
+
+         save.addEventListener('click',()=>{
+            helper(input.value);
+         },{signal:controller.signal});
+
+         cancel.addEventListener('click',()=>{
+            helper("");
+         },{signal:controller.signal});
+
+         input.addEventListener('keydown',(event)=>{
+            if(event.key==='Enter'){
+               helper(input.value);
+            }
+            
+         },{signal:controller.signal});
+      });
+  
+
 }
 
 function displayHabits(){
@@ -134,9 +207,9 @@ function displayHabits(){
       panel.classList.add('panel');
       ele.classList.add('habCard');
       d_n.classList.add('material-icons');
-      btn.classList.add('btn','push-btn','done');
-      del.classList.add('btn','push-btn','del');
-      edit.classList.add('btn','push-btn','edit');
+      btn.classList.add('btn','done');
+      del.classList.add('btn','del');
+      edit.classList.add('btn','edit');
       name.classList.add('nameCard');
       streak.classList.add('stCard');
       toplist.classList.add('toplist');
@@ -166,11 +239,12 @@ function displayHabits(){
             deleteHabit(habit);
             renderHabits();
          }
-      }
-      edit.onclick = ()=>{
-         editHabits(habit);
+      };
+      edit.onclick = async ()=>{
+         await editHabits(habit);
          renderHabits();
-      }
+      };
+
       panel.append(btn,del,edit);
       toplist.append(name,streak);
       ele.append(toplist,panel);
@@ -184,7 +258,7 @@ function popConfirm(){
    let ok = document.createElement('button');
    let cancel = document.createElement('button');
    let msg = document.createElement('p');
-   confirm.classList.add('pop-confirm');
+   confirm.classList.add('pop-box');
    ok.classList.add('btn');
    cancel.classList.add('btn');
 
@@ -199,22 +273,30 @@ function popConfirm(){
    confirm.showModal();
 
    return new Promise((resolve)=>{
+      const controller = new AbortController();
+      const helper = (result)=>{
+         controller.abort();
+         confirm.close();
+         confirm.remove();  // remove dailog from DOM
+         resolve(result);  // Sends true/false back to whoever called outer function
+      };
       ok.addEventListener('click',()=>{
-         confirm.close();
-         const success = true;
-         resolve(success); // Sends true/false back to whoever called outer function
-      },{once:true}); //removes event listener after done
+        helper(true);
+      },{signal:controller.signal}); //removes event listener after done 
+
       cancel.addEventListener('click',()=>{
-         confirm.close();
-         const failure = false;
-         resolve(failure);
-      },{once:true});
+         helper(false);
+      },{signal:controller.signal});
    })
 
 
 }
+function isAlphanum(str){
+   return /^[a-zA-Z][a-zA-Z0-9]*$/.test(str);
+}
 
 function nameFormat(str){
+   str = str.trim();
    str = str.charAt(0).toUpperCase() + str.slice(1);
    return str;
 }

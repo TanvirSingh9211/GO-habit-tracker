@@ -20,14 +20,32 @@ body{
     
     font-family: 'Poppins', sans-serif;
     background-color:rgb(233, 222, 222) ;
-    flex-direction: column;
+    
 }
 
-#form {
+.form {
     font-family: inherit;
     border-radius: 10px;
-    border-width: 1px;
-    margin-bottom: 10px;
+    border: 1px solid black;
+
+     display:inline-block; 
+}
+.add-sec{
+    border: 1px solid black;
+    padding: 10px;
+    font-weight:600;
+    
+}
+.not-verified-msg{
+    font-size: xx-small;
+    color: red;
+    /* display: none; */
+}
+.form.not-verified{
+    border:1px solid red;
+}
+.form.verified{
+    border:1px solid green;
 }
 
 .btn {
@@ -57,7 +75,7 @@ body{
     display: flex;
     justify-content: space-between;
     gap:8px;
-    anchor-name: --popinfo;
+    /* anchor-name: --popinfo; */
 }
 
 .habCard {
@@ -70,8 +88,8 @@ body{
     
 
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(223, 222, 222, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.13);
     border-radius: 16px;
     
 }
@@ -93,25 +111,29 @@ body{
     
   
 }
-.pop-confirm {
-    border: none;
+.pop-box {
+    border: 1px solid rgba(255, 255, 255, 0.25);;
     border-radius: 16px;
     padding: 24px;
-    max-width: 400px;
+    max-width: 300px;
     width: 90%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background-color:rgba(255, 255, 255, 0.208) ;
+    box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.15);
     text-align: center;
+   
+    backdrop-filter: blur(5px);
 }
-.pop-confirm>p {
+.pop-box>p {
     font-family: 'Poppins',sans-serif;
-    color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0); 
     font-size: large;
     font-weight: 500;
 }
-.pop-confirm::backdrop{
-    background-color: rgba(0, 0, 0, 0.297);
+.pop-box::backdrop{
+    background-color: rgba(0, 0, 0, 0.19);
     /* backdrop-filter: blur(2px); */
 }
+ 
 .material-icons {
     font-size: 14px;
     padding-left: 8px;
@@ -181,15 +203,14 @@ body{
 
 /* All pseudo selectors */
 
-.push-btn:active {
+.btn:active {
     transform: translateY(2px); 
     box-shadow: 0 1px #2d6a31; 
 }
-
 .btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.222);
-}
+    /* transform: scale(1.1); */
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.222);
+} 
 
 .habCard:hover {
     box-shadow: 0px 0px 5px 10px rgba(235, 75, 222, 0.058); ;
