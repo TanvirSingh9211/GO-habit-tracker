@@ -16,41 +16,77 @@ habits.forEach((habit)=>{
 
 
 //Event listners
-let input = document.getElementById("form");
-input.addEventListener('input',verifyInput());
-
-input.addEventListener("keydown",(event)=>{
+document.getElementById("form").addEventListener("keydown",(event)=>{
       if(event.key==='Enter'){
          event.preventDefault();
-         addHabits();
+         let input = event.target;
+         if(input.classList.contains('valid')){
+            addHabits(input.value);
+            input.classList.remove('valid');
+            input.value ="";
+         }
       }
    }
 );
-let addbtn  = document.getElementById("addbtn");
-   addbtn.addEventListener("click",()=>{
-      addHabits();
+document.getElementById("addbtn").addEventListener("click",()=>{
+      let input = document.getElementById("form");
+      if(input.classList.contains("valid")){
+         addHabits(input.value);
+         input.classList.remove('valid');
+         input.value = "";
+    }
    }
-);
+);;
 
-function verifyInput(){
-   
-   let value = input.value.trim();
-   let msg = document.getElementById("verifymsg");
-   if(value.length<3){
-      input.classList.add('not-verified');
-      msg.innerText = "name should be atleast 3 character long !";
-   }
-   else if(!ifDuplicate(value)){
-      input.classList.add('not-verified');
-      msg.innerText = "this name already exists";
-   }
-   else{
-      msg.innerText="";
-   }
+
+
+function debounce(func,delay=300){
+   let timerId;
+   return (...args)=>{
+      clearTimeout(timerId);
+      timerId = setTimeout(()=>{
+         func(...args);
+      },delay);
+   };
 }
 
+let debouncedValidate = debounce(validate,300);
+
+document.getElementById("form").addEventListener('input',(event)=>{
+   debouncedValidate(event,document.getElementById("errormsg"))
+});  //need of an arrow function here
+
+function validate(event,ele) {
+   let input = event.target;
+   let name = nameFormat(input.value,true);
+   let msg = ele;
+   
+   msg.innerText="";
+   input.classList.remove('valid');
+   input.classList.remove('invalid');
+
+   if(name.length===0) return;
+   if(name.length<3){
+      msg.innerText = "name length should be atleast 3 character long !";
+      input.classList.add('invalid');
+   }
+   else if(!isAlpha(name)){
+      msg.innerText = "Not valid! use only alphabets and minimal spaces.";
+      input.classList.add('invalid');
+   }
+   else if(!ifDuplicate(name)){
+      msg.innerText = "This habit already exists !!"
+      input.classList.add('invalid');
+   }
+   else{
+      msg.innerText = ""
+      input.classList.add('valid');
+   }
+
+}
 
 function ifDuplicate(hab){
+
    for(let i=0;i<habits.length;i++){
       if(habits[i].name === hab){
          return false;
@@ -77,10 +113,9 @@ function fillPB(){
 }
 
 
-function addHabits(){
-   let hab  = nameFormat(input.value) ;
-   if(hab.trim().length===0) return;
-   if(ifDuplicate(hab)){
+function addHabits(hab){
+   hab = nameFormat(hab,true);
+
       habits.push({
          name : hab,
          lastDone : undefined,      //omitted null as can cause crashes in dayjs
@@ -91,13 +126,6 @@ function addHabits(){
    });
       savelocal();
       renderHabits();
-      
-      input.value = "";
-   }
-   else{
-      alert("This habit already exists !!");
-      input.value = "";
-   }
 }
 
 function deleteHabit(habit){
@@ -108,16 +136,11 @@ function deleteHabit(habit){
 
  async function editHabits(habit){
    let newname = await popEditname();
-   newname = nameFormat(newname);
-   if(newname!==null && newname.trim().length!==0){
-      if(ifDuplicate(newname)) {
-         habit.name  = newname;
-      }
-      else {
-         alert("This habit already exists !!");
-      }
+   if(newname){
+      habit.name  = newname;
+      savelocal();
    }
-   savelocal();
+  
 }
 function popEditname(){
    let box = document.createElement('dialog');
@@ -125,6 +148,7 @@ function popEditname(){
    let cancel = document.createElement('button');
    let panel = document.createElement('div');
    let p = document.createElement('p');
+   let msg = document.createElement('p');
    let input = document.createElement('input');
 
    input.setAttribute('type','text');
@@ -134,12 +158,14 @@ function popEditname(){
    save.classList.add('btn');
    cancel.classList.add('btn');
 
+   msg.classList.add('error-msg');
+
    p.innerText = "Enter new name :";
    save.innerText = "save";
    cancel.innerText = "cancel";
 
    panel.append(save,cancel);
-   box.append(p,input,panel);
+   box.append(p,msg,input,panel);
    document.body.append(box);
 
    box.showModal();
@@ -156,22 +182,27 @@ function popEditname(){
          };
 
          save.addEventListener('click',()=>{
+            if(input.classList.contains("valid")){
             helper(input.value);
+            }
          },{signal:controller.signal});
 
          cancel.addEventListener('click',()=>{
-            helper("");
+            helper(false);
          },{signal:controller.signal});
 
          input.addEventListener('keydown',(event)=>{
-            if(event.key==='Enter'){
+            if(event.key==='Enter' && input.classList.contains("valid")){
                helper(input.value);
             }
             
          },{signal:controller.signal});
+
+         input.addEventListener('input',(event)=>{
+            debouncedValidate(event,msg);
+         },{signal:controller.signal});
       });
   
-
 }
 
 function displayHabits(){
@@ -198,12 +229,7 @@ function displayHabits(){
       let edit =  document.createElement('button');
       let panel = document.createElement('div');
       let d_n = document.createElement('span');
-
-     
-
-     
       
-
       panel.classList.add('panel');
       ele.classList.add('habCard');
       d_n.classList.add('material-icons');
@@ -224,7 +250,7 @@ function displayHabits(){
          d_n.classList.add('sec-icon');
       }
     
-      name.innerText = habit.name+'\n'+habit.currStreak + "🔥";
+      name.innerText = nameFormat(habit.name)+'\n'+habit.currStreak + "🔥";
       streak.innerText = "Best Streak"+'\n'+habit.bestStreak+"🏆"
       name.append(d_n);
      
@@ -291,11 +317,15 @@ function popConfirm(){
 
 
 }
-function isAlphanum(str){
-   return /^[a-zA-Z][a-zA-Z0-9]*$/.test(str);
+function isAlpha(str){
+   return /^[a-zA-Z]+( [a-zA-Z]+)*$/.test(str);
 }
 
-function nameFormat(str){
+function nameFormat(str,save=false){
+   if(save){
+      str = str.trim().toLowerCase();
+      return str;
+   }
    str = str.trim();
    str = str.charAt(0).toUpperCase() + str.slice(1);
    return str;
@@ -323,7 +353,7 @@ function countStreak(habit){
       savelocal();
    }
    else if(diff===0){
-     alert("This task is already completted for Today !");
+     popAlert("This task is already completted for today !");
    }
    else{
       habit.currStreak = 1;
@@ -332,6 +362,30 @@ function countStreak(habit){
       savelocal();
    }
   
+}
+
+function popAlert(msg){
+   let box = document.createElement('dialog');
+   let icon = document.createElement('span');
+   let p  = document.createElement('p');
+   let close = document.createElement('button');
+   
+   p.innerText = msg;
+   close.innerText = "Close"
+   box.classList.add('pop-box');
+   close.classList.add('btn');
+   icon.classList.add('alert');
+
+   box.append(icon,p,close);
+   document.body.append(box);
+   box.showModal();
+
+   close.addEventListener('click',()=>{
+      box.close();
+      box.remove();
+   },{once:true})
+
+
 }
 
 function renderHabits(){

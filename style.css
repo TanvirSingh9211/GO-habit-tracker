@@ -4,6 +4,9 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 
+input[type="text"]:focus {
+    outline: none;
+}
 
 .heading {
     font-family:inherit ;
@@ -27,25 +30,25 @@ body{
     font-family: inherit;
     border-radius: 10px;
     border: 1px solid black;
-
+    margin-top: 10px;
      display:inline-block; 
 }
-.add-sec{
-    border: 1px solid black;
-    padding: 10px;
-    font-weight:600;
-    
+
+.valid{
+    border-color: green;
 }
-.not-verified-msg{
-    font-size: xx-small;
-    color: red;
-    /* display: none; */
+.invalid{
+    border-color: red;
 }
-.form.not-verified{
-    border:1px solid red;
+.error-msg {
+    font-size: x-small !important;
+    height: 4px !important;
+    color: red !important;
 }
-.form.verified{
-    border:1px solid green;
+.addHab {
+    font-weight: 600;
+    padding-top: 20px;
+    margin-bottom: 20px;
 }
 
 .btn {
@@ -128,6 +131,8 @@ body{
     color: rgb(0, 0, 0); 
     font-size: large;
     font-weight: 500;
+    padding: 0;
+    
 }
 .pop-box::backdrop{
     background-color: rgba(0, 0, 0, 0.19);
@@ -238,6 +243,13 @@ body{
     color: #2e7d32;
 }
 
+.alert::before {
+    font-family: 'Material Icons';
+    content: '\e88e'; /* Unicode for 'done' icon */
+    font-size: 50px;
+    color: gray;
+
+}
 /* All animations */
 
 /* @keyframes scaleup { 
