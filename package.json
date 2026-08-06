@@ -2,7 +2,6 @@
   "name": "advancement-tracker",
   "version": "1.0.0",
   "description": "This is my simple attempt towards making a website where you can keep track of your habits.",
- 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
@@ -16,14 +15,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-
   "type": "module",
-
   "bugs": {
     "url": "https://github.com/TanvirSingh9211/GO-habit-tracker/issues"
   },
   "homepage": "https://github.com/TanvirSingh9211/GO-habit-tracker#readme",
   "dependencies": {
+    "cal-heatmap": "^4.2.4",
+    "d3": "^7.9.0",
     "dayjs": "^1.11.21"
   },
   "devDependencies": {

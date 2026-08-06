@@ -1,6 +1,116 @@
 //Logic of my web app
 import dayjs from "dayjs";
+import CalHeatmap from "cal-heatmap";
+import "cal-heatmap/cal-heatmap.css";
+import Tooltip from "cal-heatmap/plugins/Tooltip";
+import LegendLite from"cal-heatmap/plugins/LegendLite";
+import CalendarLabel from "cal-heatmap/plugins/CalendarLabel";
+
+
+
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
+let dayData =  JSON.parse(localStorage.getItem("dayData"))||[];
+let day = localStorage.getItem('day') || 0;
+
+
+
+function storeData(per){
+   if(dayData.length===0){
+      dayData.push({
+         date : dayjs().format("YYYY-MM-DD"),
+         value : 0  
+      });
+
+   }
+   let d = dayjs(dayData[day].date);
+   let today = dayjs();
+   let diff = today.diff(d,"days");
+   if(diff===0){
+      dayData[day].value = per;
+   }
+   else if(diff>=1){
+      dayData.push({
+         date : today.format("YYYY-MM-DD"),
+         value : per
+      });
+      day++;
+   }
+
+
+}
+
+const cal = new CalHeatmap();
+
+ async function paintMap(){
+   await cal.paint({
+   itemSelector: "#heatmap",
+
+   range: 6,
+
+   domain: {
+      type: "month",
+      
+   },
+
+   date : {
+      start : new Date(),
+   },
+
+   subDomain: {
+      type: "day",
+      height:15,
+      width:15,
+      radius: 100
+   },
+
+   data: {
+      source :dayData,
+      x : "date",
+      y : "value"
+   },
+
+   scale: {
+      color: {
+         type: "threshold",
+         range: [
+         "#ebedf0",
+         "#a7e99b",
+         "#53ca7e",
+         "#30a14a",
+         "#216e39e7"
+         ],
+         domain: [1, 2, 3, 4]
+      }
+   }}, [
+  [
+    Tooltip,
+    {
+      text: (date, value) => `${value ?? 0} habits completed on ${dayjs(date).format("YYYY-MM-DD") ?? 0}`,
+    }
+  ],
+  [
+    LegendLite,
+    {
+      itemSelector:"#legend",
+      radius:100,
+     
+
+    }
+  ],
+  [
+CalendarLabel,
+{
+width:30,
+textAlign:"start",
+text: () => ["", "Mon", "", "Wed", "", "Fri", ""]
+}
+]
+]);
+// cal.next();
+ 
+}
+
+
 
 //Everyday Reset
 habits.forEach((habit)=>{   
@@ -18,7 +128,7 @@ habits.forEach((habit)=>{
 //Event listners
 document.getElementById("form").addEventListener("keydown",(event)=>{
       if(event.key==='Enter'){
-         event.preventDefault();
+         
          let input = event.target;
          if(input.classList.contains('valid')){
             addHabits(input.value);
@@ -28,13 +138,14 @@ document.getElementById("form").addEventListener("keydown",(event)=>{
       }
    }
 );
+
 document.getElementById("addbtn").addEventListener("click",()=>{
       let input = document.getElementById("form");
       if(input.classList.contains("valid")){
          addHabits(input.value);
          input.classList.remove('valid');
          input.value = "";
-    }
+   }
    }
 );;
 
@@ -53,14 +164,14 @@ function debounce(func,delay=300){
 let debouncedValidate = debounce(validate,300);
 
 document.getElementById("form").addEventListener('input',(event)=>{
-   debouncedValidate(event,document.getElementById("errormsg"))
+   debouncedValidate(event,document.getElementById("errormsg"));
 });  //need of an arrow function here
 
 function validate(event,ele) {
    let input = event.target;
    let name = nameFormat(input.value,true);
    let msg = ele;
-   
+
    msg.innerText="";
    input.classList.remove('valid');
    input.classList.remove('invalid');
@@ -86,7 +197,6 @@ function validate(event,ele) {
 }
 
 function ifDuplicate(hab){
-
    for(let i=0;i<habits.length;i++){
       if(habits[i].name === hab){
          return false;
@@ -99,6 +209,7 @@ function fillPB(){
    let fill = document.getElementById('innerPB');
    if(habits.length===0){
       fill.style.width = 0+ '%';
+     
    }
    let per = 0.0;
    let count = 0;
@@ -110,6 +221,8 @@ function fillPB(){
    }
    per = (count/habits.length)*100;
    fill.style.width = per + '%';
+   storeData(count);
+   savelocal();
 }
 
 
@@ -212,10 +325,12 @@ function displayHabits(){
    if(habits.length===0){
       placehold.textContent = "No habits yet. Add habits";
       habitList.style.display = 'none';
+      document.getElementById("heatmap").style.display = "none";
    }
    else{
        placehold.textContent = "";
        habitList.style.display = 'flex';
+       document.getElementById("heatmap").style.display = "flex";
    }
 
    habits.forEach((habit)=>{
@@ -355,12 +470,6 @@ function countStreak(habit){
    else if(diff===0){
      popAlert("This task is already completted for today !");
    }
-   else{
-      habit.currStreak = 1;
-      habit.completed  = true;
-      habit.lastDone =  dayjs().format("YYYY-MM-DD HH:mm");
-      savelocal();
-   }
   
 }
 
@@ -393,9 +502,12 @@ function renderHabits(){
    habitList.innerHTML = "";
    displayHabits();
    fillPB();
+   paintMap();
 }
 function savelocal() {
     localStorage.setItem("habits", JSON.stringify(habits));
+    localStorage.setItem("dayData",JSON.stringify(dayData));
+    localStorage.setItem("day",day);
 }
 displayHabits();
 fillPB();

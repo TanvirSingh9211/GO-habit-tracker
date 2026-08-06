@@ -66,7 +66,7 @@ body{
 #habitlist {
     font-family: inherit;
     display: flex;
-    border: 1px solid  rgba(255, 255, 255, 0.46);
+    border: 1px solid  rgba(255, 255, 255, 0.404);
     border-radius: 16px;
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.085);
     flex-flow: row wrap;
@@ -204,6 +204,41 @@ body{
     box-shadow: 0 5px 10px 0 rgba(9, 9, 9, 0.35);
     border-radius: 16px;
     padding: 2px 2px 2px 2px;
+}
+
+.heat-map{
+    border:1px solid black;
+    display: flex;
+    padding: 20px;
+    margin:20px;
+    border: 1px solid  rgba(255, 255, 255, 0.404);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.085);
+    width: fit-content;
+    flex-direction: column-reverse;
+
+}
+.legend-container {
+   margin-top: auto ;
+   margin-left: auto;
+   display: flex;
+   flex-direction: row;
+   align-items: baseline;
+   gap:5px;
+   margin-top: 8px;
+}
+.legend-container>span {
+    font-size:x-small;
+}
+
+
+/*for heat map*/
+
+.ch-subdomain-bg:hover {
+    stroke:green !important;
+    cursor: pointer;
+    transform: translateY(2px) ;
+   
 }
 
 /* All pseudo selectors */
