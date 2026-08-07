@@ -4,35 +4,57 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 
-input[type="text"]:focus {
-    outline: none;
+/* lightmode colors */
+:root {
+    --primary-color : black;
+    --heading-bg-color : rgb(182, 219, 188); 
+    --bg-color : rgb(233, 222, 222);
+    --heading-shadow : 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    --heading-border : 1px solid rgba(255, 255, 255, 0.25);
+    --form-border : 1px solid black;
+    --form-bg-color : white;
+    --btn-bg-color : rgb(193, 216, 187); 
+    --btn-border :  1px solid rgba(255, 255, 255, 0.25);
+    --btn-shadow : 0 3px 3px 0 rgba(0, 0, 0, 0.15);
+    --habit-list-border : 1px solid rgba(255, 255, 255, 0.404);
+    --habit-list-shadow : 0px 0px 5px 5px rgba(0, 0, 0, 0.085);
+    --hab-card-border : 1px solid rgba(223, 222, 222, 0.25);
+    --hab-card-shadow : 0 8px 32px 0 rgba(0, 0, 0, 0.13);
+    --name-card-shadow :  0px 0px 3px 5px rgba(132, 130, 130, 0.099);
 }
+
+
 
 .heading {
     font-family:inherit ;
     text-align: center;
     font-weight: 700;
-    background: rgba(45, 206, 72, 0.15); 
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    background: var(--heading-bg-color); 
+    /* backdrop-filter: blur(12px); */
+    border: var(--heading-border);
+    box-shadow: var(--heading-shadow);
     border-radius: 16px;
+    
 }
 
 body{
     
     font-family: 'Poppins', sans-serif;
-    background-color:rgb(233, 222, 222) ;
+    background-color: var(--bg-color) ;
+    /* background-color: black; */
+    color: var(--primary-color);
     
 }
 
 .form {
     font-family: inherit;
     border-radius: 10px;
-    border: 1px solid black;
+    background-color : var(--form-bg-color);
+    border: var(--form-border);
     margin-top: 10px;
-     display:inline-block; 
-}
+    display:inline-block; 
+    outline: none;
+} 
 
 .valid{
     border-color: green;
@@ -55,10 +77,10 @@ body{
     font-family: inherit;
     font-weight: 400;
     height: 20px;
-    background: rgba(103, 185, 80, 0.15); 
+    background: var(--btn-bg-color); 
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.15);
+    border: var(--btn-border);
+    box-shadow: var(--btn-shadow);
     border-radius: 16px;
     cursor: pointer;
     margin: 10px;
@@ -66,9 +88,9 @@ body{
 #habitlist {
     font-family: inherit;
     display: flex;
-    border: 1px solid  rgba(255, 255, 255, 0.404);
+    border: var(--habit-list-border);
     border-radius: 16px;
-    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.085);
+    box-shadow: var(--habit-list-shadow);
     flex-flow: row wrap;
     padding : 20px;
     gap : 12px
@@ -91,15 +113,15 @@ body{
     
 
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(223, 222, 222, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.13);
+    border: var(--hab-card-border);
+    box-shadow: var(--hab-card-shadow);
     border-radius: 16px;
     
 }
 
 .nameCard {
     padding: 5px;
-    box-shadow: 0px 0px 3px 5px rgba(132, 130, 130, 0.099);
+    box-shadow: var(--name-card-shadow);
     border-radius: 16px;
     width: min-content;
     /* force ele to stay within parent size,let it shrink but not let it grow */
@@ -109,6 +131,7 @@ body{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
     
     /* position: relative; keeps the popup localized to this item */
     
@@ -210,7 +233,7 @@ body{
     border:1px solid black;
     display: flex;
     padding: 20px;
-    margin:20px;
+    
     border: 1px solid  rgba(255, 255, 255, 0.404);
     border-radius: 16px;
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.085);
@@ -218,6 +241,14 @@ body{
     flex-direction: column-reverse;
 
 }
+
+.heat-map-container{
+    display: flex;
+    margin-top: 20px;
+    gap:10px;
+    align-items: center;
+}
+
 .legend-container {
    margin-top: auto ;
    margin-left: auto;
@@ -229,6 +260,7 @@ body{
 }
 .legend-container>span {
     font-size:x-small;
+    cursor: pointer;
 }
 
 
@@ -240,6 +272,7 @@ body{
     transform: translateY(2px) ;
    
 }
+
 
 /* All pseudo selectors */
 
@@ -273,17 +306,32 @@ body{
 }
 .done::before {
     font-family: 'Material Icons';
-    content: '\e5ca'; /* Unicode for 'done' icon */
+    content: '\e5ca'; 
     font-size: 20px;
     color: #2e7d32;
 }
 
 .alert::before {
     font-family: 'Material Icons';
-    content: '\e88e'; /* Unicode for 'done' icon */
+    content: '\e88e'; 
     font-size: 50px;
     color: gray;
 
+}
+.next::before {
+    font-family: 'Material Icons';
+    /* forward arrow icon */
+    content: "\e5c8"; 
+    font-size: 20px;
+    color: black;
+    
+}
+.prev::before {
+     font-family: 'Material Icons';
+     /* bacward  arrow icon */
+    content: "\e5c4"; 
+    font-size: 20px;
+    color: black;
 }
 /* All animations */
 

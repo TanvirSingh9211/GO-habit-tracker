@@ -39,27 +39,33 @@ function storeData(per){
 
 }
 
+
 const cal = new CalHeatmap();
 
- async function paintMap(){
+
+async function paintMap(){
+   const start = new Date();
+   start.setMonth(start.getMonth() - 5);
+
    await cal.paint({
    itemSelector: "#heatmap",
 
-   range: 6,
+   date: {
+      start 
+   },
+
+   range: 12,
 
    domain: {
       type: "month",
+      width:20
       
-   },
-
-   date : {
-      start : new Date(),
    },
 
    subDomain: {
       type: "day",
-      height:15,
-      width:15,
+      height:10,
+      width:10,
       radius: 100
    },
 
@@ -106,13 +112,21 @@ text: () => ["", "Mon", "", "Wed", "", "Fri", ""]
 }
 ]
 ]);
-// cal.next();
+
+document.querySelector(".next").addEventListener('click',()=>{
+   cal.next(5);
+});
+
+document.querySelector(".prev").addEventListener('click',()=>{
+   cal.previous(5);
+ });
  
 }
 
 
 
 //Everyday Reset
+
 habits.forEach((habit)=>{   
    let diff = dayjs().diff(dayjs(habit.lastDone),"days");
    if(diff>=1){
@@ -122,6 +136,7 @@ habits.forEach((habit)=>{
       }
    }
    savelocal();
+  
 })
 
 
@@ -352,9 +367,12 @@ function displayHabits(){
       del.classList.add('btn','del');
       edit.classList.add('btn','edit');
       name.classList.add('nameCard');
+
+      
       streak.classList.add('stCard');
       toplist.classList.add('toplist');
 
+      name.setAttribute('title',`name : ${nameFormat(habit.name)}`+'\n'+`created at : ${habit.createdAt}`);
 
       if(habit.completed===false){
          d_n.innerText = "radio_button_unchecked";
@@ -511,5 +529,6 @@ function savelocal() {
 }
 displayHabits();
 fillPB();
+paintMap();
 
 
