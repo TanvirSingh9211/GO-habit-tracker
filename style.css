@@ -9,32 +9,149 @@
     --primary-color : black;
     --heading-bg-color : rgb(182, 219, 188); 
     --bg-color : rgb(233, 222, 222);
+
     --heading-shadow : 0 8px 32px 0 rgba(0, 0, 0, 0.15);
     --heading-border : 1px solid rgba(255, 255, 255, 0.25);
+
     --form-border : 1px solid black;
     --form-bg-color : white;
+    --form-color : black;
+
+    --btn-color : black;
     --btn-bg-color : rgb(193, 216, 187); 
     --btn-border :  1px solid rgba(255, 255, 255, 0.25);
     --btn-shadow : 0 3px 3px 0 rgba(0, 0, 0, 0.15);
+    --btn-hover-shadow :  0 3px 10px 0 rgba(0, 0, 0, 0.222);
+
     --habit-list-border : 1px solid rgba(255, 255, 255, 0.404);
     --habit-list-shadow : 0px 0px 5px 5px rgba(0, 0, 0, 0.085);
+    
     --hab-card-border : 1px solid rgba(223, 222, 222, 0.25);
     --hab-card-shadow : 0 8px 32px 0 rgba(0, 0, 0, 0.13);
-    --name-card-shadow :  0px 0px 3px 5px rgba(132, 130, 130, 0.099);
+    --hab-card-hover-shadow : 0px 0px 5px 10px rgba(88, 235, 75, 0.152);
+
+    --inside-card-shadow :  0px 0px 3px 5px rgba(132, 130, 130, 0.099);
+
+    --pop-box-color : black;
+    --pop-box-border :  1px solid rgba(255, 255, 255, 0.25);
+    --pop-box-bg-color : rgba(255, 255, 255, 0.208);
+    --pop-box-shadow : 0 0 20px 3px rgba(0, 0, 0, 0.15);
+    --pop-box-backdrop-bg-color : rgba(0, 0, 0, 0.19);
+
+    --progress-bar-border : 1px solid gray;
+    --progress-bar-bg-color : white;
+    --progress-bar-shadow : 0 5px 15px 0 rgba(9, 9, 9, 0.35);
+    --progress-bar-color : rgb(160, 225, 178);
+    --progress-bar-title-shadow : 0 5px 10px 0 rgba(9, 9, 9, 0.35);
+
+    --heat-map-box-shadow : 0px 0px 5px 5px rgba(0, 0, 0, 0.085);
+    
+    --edit-syb-color : #4a4a4a;
+    --del-syb-color : #ff4d4d94; ;
+    --done-syb-color: #2e7d32;
+    --alert-syb-color: grey;
+    --nav-syb-color:black;
+    
+    
+}
+
+[theme="dark"] {
+    --primary-color : #f8f1f1;
+
+    /* Main backgrounds */
+    --heading-bg-color : rgb(146, 4, 185);
+    --bg-color : #121815;
+
+    /* Heading */
+    --heading-shadow : 0 8px 32px 0 rgba(146, 4, 185, 0.632);
+    --heading-border : 1px solid rgba(11, 1, 1, 0.822);
+
+    /* Form */
+    --form-color:white;
+    --form-border : 1px solid rgba(255, 255, 255, 0.18);
+    --form-bg-color : #1c2420;
+
+    /* Buttons */
+    --btn-color : white;
+    --btn-bg-color : rgb(102, 51, 117);
+    --btn-border : 1px solid rgba(0, 0, 0, 0.496);
+    --btn-shadow : 0 0px 6px 2px rgb(30, 9, 31);
+    --btn-hover-shadow : 0 0px 12px 0 rgba(160, 225, 178, 0.18);
+
+    /* Habit list */
+    --habit-list-border : 1px solid rgba(255, 255, 255, 0.10);
+    --habit-list-shadow : 0px 0px 8px 5px rgba(0, 0, 0, 0.792),
+                         0px 0px 9px 6px rgba(255, 255, 255, 0.138);
+
+    /* Habit cards */
+    --hab-card-border : 1px solid rgba(255, 255, 255, 0.10);
+    --hab-card-shadow : 0 8px 32px 0 rgba(0, 0, 0, 0.30);
+    --hab-card-hover-shadow : 0px 0px 12px 6px rgba(160, 225, 178, 0.08);
+
+    /* Inside card */
+    --inside-card-shadow : 0px 0px 5px 4px rgba(0, 0, 0, 0.601),
+                            0px 0px 6px 5px rgba(255, 255, 255, 0.047);
+
+    /* Popup */
+    --pop-box-color : white;
+    --pop-box-border : 1px solid rgba(255, 255, 255, 0.12);
+    --pop-box-bg-color : rgba(71, 50, 74, 0.249);
+    --pop-box-shadow : 0 0 25px 5px rgba(0, 0, 0, 0.40);
+    --pop-box-backdrop-bg-color : rgba(1, 1, 1, 0.433);
+
+    /* Progress bar */
+    --progress-bar-border : 1px solid rgba(255, 255, 255, 0.18);
+    --progress-bar-bg-color : #1c2420;
+    --progress-bar-shadow : 0 1px 15px 4px rgb(0, 0, 0),
+                            0 1px 16px 5px rgba(255, 255, 255, 0.253);
+    --progress-bar-color : rgb(204, 2, 204);
+    --progress-bar-title-shadow : 0 5px 10px 0 rgba(0, 0, 0, 0.827),
+                                    0 6px 11px 0 rgba(255, 255, 255, 0.229);
+
+    /* Heat map */
+    --heat-map-box-shadow : 0px 0px 8px 5px rgba(0, 0, 0, 0.463),
+                            0px 0px 9px 6px rgba(255, 255, 255, 0.144);
+
+    /* Symbols */
+    --edit-syb-color : #c8c8c8;
+    --del-syb-color : rgb(182, 61, 61);
+    --done-syb-color : rgba(2, 255, 2, 0.815);
+    --alert-syb-color : #b5b5b5;
+    --nav-syb-color : #f1f1f1;
 }
 
 
 
-.heading {
+.heading-container {
     font-family:inherit ;
-    text-align: center;
+    
     font-weight: 700;
     background: var(--heading-bg-color); 
     /* backdrop-filter: blur(12px); */
     border: var(--heading-border);
     box-shadow: var(--heading-shadow);
     border-radius: 16px;
-    
+    /*using grid first time*/
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 1rem ;
+}
+.heading {
+   font-size: 2.3rem;
+   /* position: absolute; */
+   /* left: 50%;
+   transform: translate(-50%);
+       */
+    grid-column: 2;
+    text-align: center;
+}
+.theme-btn {
+    grid-column: 3;
+    justify-self: end;
+    margin-right: 20px;
+    background-color: var(--heading-bg-color);
+    border: none;
 }
 
 body{
@@ -49,9 +166,11 @@ body{
 .form {
     font-family: inherit;
     border-radius: 10px;
+    color :var(--form-color);
     background-color : var(--form-bg-color);
     border: var(--form-border);
     margin-top: 10px;
+    margin-bottom: 15px;
     display:inline-block; 
     outline: none;
 } 
@@ -75,6 +194,7 @@ body{
 
 .btn {
     font-family: inherit;
+    color: var(--btn-color);
     font-weight: 400;
     height: 20px;
     background: var(--btn-bg-color); 
@@ -84,6 +204,7 @@ body{
     border-radius: 16px;
     cursor: pointer;
     margin: 10px;
+  
 }
 #habitlist {
     font-family: inherit;
@@ -121,7 +242,7 @@ body{
 
 .nameCard {
     padding: 5px;
-    box-shadow: var(--name-card-shadow);
+    box-shadow: var(--inside-card-shadow);
     border-radius: 16px;
     width: min-content;
     /* force ele to stay within parent size,let it shrink but not let it grow */
@@ -138,48 +259,51 @@ body{
   
 }
 .pop-box {
-    border: 1px solid rgba(255, 255, 255, 0.25);;
+    border: var(--pop-box-border);
     border-radius: 16px;
-    padding: 24px;
+    padding: 20px;
     max-width: 300px;
     width: 90%;
-    background-color:rgba(255, 255, 255, 0.208) ;
-    box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.15);
+    background-color:var(--pop-box-bg-color) ;
+    box-shadow: var(--pop-box-shadow);
     text-align: center;
    
     backdrop-filter: blur(5px);
 }
 .pop-box>p {
     font-family: 'Poppins',sans-serif;
-    color: rgb(0, 0, 0); 
+    color: var(--pop-box-color); 
     font-size: large;
     font-weight: 500;
     padding: 0;
     
 }
 .pop-box::backdrop{
-    background-color: rgba(0, 0, 0, 0.19);
+    background-color: var(--pop-box-backdrop-bg-color);
     /* backdrop-filter: blur(2px); */
 }
  
 .material-icons {
-    font-size: 14px;
+    font-size: 16px;
     padding-left: 8px;
 
 }
 .pri-icon{
     /* for not completed */
     color: #db5613;
+    
 
 }
 .sec-icon {
     /* for completed */
     color: #2e7d32;
+   
+    
 }
 
 .stCard {
     text-align: right;
-    box-shadow: 0px 0px 3px 5px rgba(132, 130, 130, 0.099);
+    box-shadow: var(--inside-card-shadow);
     
     font-size: smaller;
     /* not let flexbox to shrink */
@@ -195,48 +319,48 @@ body{
    
     margin-top: 8px;
     border-radius: 12px;
-    box-shadow: 0px 2px 3px 5px rgba(132, 130, 130, 0.099);;
+    box-shadow: var(--inside-card-shadow);
 }
 
 #outerPB {
     margin-top: 10px;
     height: 9px;
     width: 500px;
-    border: 1px solid gray;
+    /* border: var(); looks good without it*/
     border-radius: 5px;
     display: inline-block;
-    background-color: white;
+    background-color:var(--progress-bar-bg-color);
     overflow: hidden;
-    box-shadow: 0 5px 15px 0 rgba(9, 9, 9, 0.35);
+    box-shadow: var(--progress-bar-shadow);
 }
 
 #innerPB {
     height: 100%;
     width: 0%;
     border-radius: 5px;
-    background-color:rgba(45, 206, 72, 0.418); ;
+    background-color:var(--progress-bar-color); 
+    cursor: pointer;
 }
 
 .prog {
     font-family: inherit;
     font-weight: 600;
     display: inline-block;
-    background: rgba(45, 206, 72, 0.15); 
+    background: var(--btn-bg-color); 
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 5px 10px 0 rgba(9, 9, 9, 0.35);
+    border: var(--btn-border);
+    box-shadow: var(--progress-bar-title-shadow);
     border-radius: 16px;
     padding: 2px 2px 2px 2px;
 }
 
 .heat-map{
-    border:1px solid black;
     display: flex;
     padding: 20px;
     
-    border: 1px solid  rgba(255, 255, 255, 0.404);
+    border: var(--habit-list-border);
     border-radius: 16px;
-    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.085);
+    box-shadow: var(--heat-map-box-shadow);
     width: fit-content;
     flex-direction: column-reverse;
 
@@ -282,11 +406,11 @@ body{
 }
 .btn:hover {
     /* transform: scale(1.1); */
-    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.222);
+    box-shadow:var(--btn-hover-shadow);
 } 
 
 .habCard:hover {
-    box-shadow: 0px 0px 5px 10px rgba(235, 75, 222, 0.058); ;
+    box-shadow: var(--hab-card-hover-shadow) ;
     /* animation: scaleup 0.5s ease-in-out 0.1s forwards;   */
    /* 2s duration and 1 sec delay forwards keep the scaled ver. (not let it shrink until mouse is removed) */
 }
@@ -295,27 +419,27 @@ body{
     font-family: 'Material Icons';
     content: '\e3c9'; /* The unique code for the pencil icon */
     font-size: 20px;
-    color: #4a4a4a;  
+    color: var(--edit-syb-color);  
 }
 .del::before {
     font-family: 'Material Icons';
     content: '\e872'; /* The Unicode code for the delete icon */
     font-size: 20px;
-    color: #ff4d4d94; /* Red color for delete */
+    color: var(--del-syb-color);/* Red color for delete */
     cursor: pointer;
 }
 .done::before {
     font-family: 'Material Icons';
     content: '\e5ca'; 
     font-size: 20px;
-    color: #2e7d32;
+    color:var(--done-syb-color);
 }
 
 .alert::before {
     font-family: 'Material Icons';
     content: '\e88e'; 
     font-size: 50px;
-    color: gray;
+    color: var(--alert-syb-color);
 
 }
 .next::before {
@@ -323,7 +447,7 @@ body{
     /* forward arrow icon */
     content: "\e5c8"; 
     font-size: 20px;
-    color: black;
+    color: var(--nav-syb-color);
     
 }
 .prev::before {
@@ -331,7 +455,22 @@ body{
      /* bacward  arrow icon */
     content: "\e5c4"; 
     font-size: 20px;
-    color: black;
+    color: var(--nav-syb-color);
+}
+
+.darkMode::before {
+    font-family: 'Material Icons';
+    /* half moon */
+    font-size: large;
+    content : "\e51c";
+    color : black;
+}
+.lightMode::before {
+    font-family: 'Material Icons';
+    /* half moon */
+    font-size: large;
+    content : "\e518";
+    color : white;
 }
 /* All animations */
 

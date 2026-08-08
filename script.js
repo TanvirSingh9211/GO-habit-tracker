@@ -11,7 +11,48 @@ import CalendarLabel from "cal-heatmap/plugins/CalendarLabel";
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 let dayData =  JSON.parse(localStorage.getItem("dayData"))||[];
 let day = localStorage.getItem('day') || 0;
+let currtheme = localStorage.getItem("theme");
 
+
+if(currtheme==="dark"){
+   setDarkMode();
+}
+
+
+document.querySelector(".theme-btn").addEventListener('click',()=>{
+   
+   changeTheme();
+   paintMap();
+
+});
+
+function changeTheme(){
+  
+   if(currtheme==="dark"){
+      setLightMode();
+   }
+   else {
+      setDarkMode();
+   }
+}
+function setDarkMode(){
+   let btn = document.querySelector(".theme-btn");
+   btn.classList.remove("darkMode");
+   btn.classList.add("lightMode");
+   document.body.setAttribute("theme","dark");
+   localStorage.setItem("theme","dark");
+   currtheme = "dark";
+
+}
+
+function setLightMode(){
+   let btn = document.querySelector(".theme-btn");
+   btn.classList.remove("lightMode");
+   btn.classList.add("darkMode");
+   document.body.removeAttribute("theme");
+   localStorage.setItem("theme","light");
+   currtheme = "light";
+}
 
 
 function storeData(per){
@@ -37,6 +78,29 @@ function storeData(per){
    }
 
 
+}
+
+function heatColor(){
+   const lightPalette = [
+         "#ebedf0",
+         "#a7e99b",
+         "#53ca7e",
+         "#30a14a",
+         "#216e39e7"
+         ];
+   const darkPalette = [
+         "#ebedf0",
+         "#c79be9",
+         "#9653ca",
+         "#6f30a1",
+         "#4c216ee7"
+      ];
+   if(currtheme==="dark"){
+      return darkPalette;
+   }
+   else{
+      return lightPalette;
+   }
 }
 
 
@@ -78,13 +142,7 @@ async function paintMap(){
    scale: {
       color: {
          type: "threshold",
-         range: [
-         "#ebedf0",
-         "#a7e99b",
-         "#53ca7e",
-         "#30a14a",
-         "#216e39e7"
-         ],
+         range:heatColor(),
          domain: [1, 2, 3, 4]
       }
    }}, [
@@ -222,6 +280,7 @@ function ifDuplicate(hab){
 
 function fillPB(){
    let fill = document.getElementById('innerPB');
+  
    if(habits.length===0){
       fill.style.width = 0+ '%';
      
@@ -236,6 +295,7 @@ function fillPB(){
    }
    per = (count/habits.length)*100;
    fill.style.width = per + '%';
+   fill.setAttribute("title",`completion : ${Math.round(per)}%`+'\n'+`${count}/${habits.length} habits completted.`);
    storeData(count);
    savelocal();
 }
@@ -333,6 +393,15 @@ function popEditname(){
   
 }
 
+function habStatus(status){
+   if(status){
+      return "completed";
+   }
+   else{
+      return "not completed";
+   }
+}
+
 function displayHabits(){
 
    let habitList = document.getElementById('habitlist');
@@ -372,7 +441,9 @@ function displayHabits(){
       streak.classList.add('stCard');
       toplist.classList.add('toplist');
 
-      name.setAttribute('title',`name : ${nameFormat(habit.name)}`+'\n'+`created at : ${habit.createdAt}`);
+      name.setAttribute('title',`name : ${nameFormat(habit.name)}`+
+      '\n'+`created on : ${habit.createdAt}`+'\n'+
+      `status : ${habStatus(habit.completed)}`);
 
       if(habit.completed===false){
          d_n.innerText = "radio_button_unchecked";
@@ -421,7 +492,7 @@ function popConfirm(){
    ok.classList.add('btn');
    cancel.classList.add('btn');
 
-   msg.innerText = "Delete ❓";
+   msg.innerText = "Delete ?";
    ok.innerText = "OK";
    cancel.innerText = "Cancel";
 
