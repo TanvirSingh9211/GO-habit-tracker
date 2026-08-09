@@ -36,9 +36,7 @@ function changeTheme(){
    }
 }
 function setDarkMode(){
-   let btn = document.querySelector(".theme-btn");
-   btn.classList.remove("darkMode");
-   btn.classList.add("lightMode");
+   
    document.body.setAttribute("theme","dark");
    localStorage.setItem("theme","dark");
    currtheme = "dark";
@@ -46,9 +44,7 @@ function setDarkMode(){
 }
 
 function setLightMode(){
-   let btn = document.querySelector(".theme-btn");
-   btn.classList.remove("lightMode");
-   btn.classList.add("darkMode");
+
    document.body.removeAttribute("theme");
    localStorage.setItem("theme","light");
    currtheme = "light";
@@ -171,6 +167,9 @@ text: () => ["", "Mon", "", "Wed", "", "Fri", ""]
 ]
 ]);
 
+
+ 
+}
 document.querySelector(".next").addEventListener('click',()=>{
    cal.next(5);
 });
@@ -178,9 +177,6 @@ document.querySelector(".next").addEventListener('click',()=>{
 document.querySelector(".prev").addEventListener('click',()=>{
    cal.previous(5);
  });
- 
-}
-
 
 
 //Everyday Reset

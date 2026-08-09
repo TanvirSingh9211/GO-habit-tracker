@@ -51,6 +51,8 @@
     --done-syb-color: #2e7d32;
     --alert-syb-color: grey;
     --nav-syb-color:black;
+    --theme-toggle-syb : "\e51c" ;
+    
     
     
 }
@@ -118,6 +120,7 @@
     --done-syb-color : rgba(2, 255, 2, 0.815);
     --alert-syb-color : #b5b5b5;
     --nav-syb-color : #f1f1f1;
+    --theme-toggle-syb :  "\e518";
 }
 
 
@@ -458,20 +461,14 @@ body{
     color: var(--nav-syb-color);
 }
 
-.darkMode::before {
+.themeToggle::before {
     font-family: 'Material Icons';
     /* half moon */
     font-size: large;
-    content : "\e51c";
-    color : black;
+    content : var(--theme-toggle-syb);
+    color : var(--primary-color);
 }
-.lightMode::before {
-    font-family: 'Material Icons';
-    /* half moon */
-    font-size: large;
-    content : "\e518";
-    color : white;
-}
+
 /* All animations */
 
 /* @keyframes scaleup { 
