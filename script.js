@@ -20,7 +20,6 @@ if(currtheme==="dark"){
 
 
 document.querySelector(".theme-btn").addEventListener('click',()=>{
-   
    changeTheme();
    paintMap();
 
@@ -35,6 +34,7 @@ function changeTheme(){
       setDarkMode();
    }
 }
+
 function setDarkMode(){
    
    document.body.setAttribute("theme","dark");
