@@ -49,6 +49,7 @@ body {
     -webkit-backdrop-filter: blur(12px);
 
     box-shadow: 0 8px 30px rgba(74, 73, 73, 0.25);
+    
 }
 
 .form-container > header {
@@ -62,6 +63,8 @@ body {
 .form-container > form {
     display: flex;
     flex-direction: column;
+    border: 1px solid black;
+    
 }
 
 .form-container > form input {
@@ -111,10 +114,10 @@ body {
     opacity: 0.012;
 }
 
-.form-container > * {
-    position: relative;
+/* .form-container > * {
+    position: fixed;
     z-index: 1;
-}
+} */
 
 .submit-btn {
     font-family: inherit;
@@ -132,4 +135,32 @@ body {
 .submit-btn:active {
     transform: translateY(2px); 
     box-shadow: none;
+}
+
+.errormsg-container{
+    height: 40px;
+    border: 1px solid black;
+   
+    padding: 5px;
+  
+}
+
+#errormsg {
+    font-size: x-small;
+    color: red;
+    height: 4px;
+}
+
+.success-container {
+    position: absolute;
+    bottom: 30px;
+    border :1px solid black;
+    height: 40px;
+    padding: 5px;
+}
+
+#successmsg {
+    color: green;
+    font-size: medium;
+    font-weight: bold;
 }
