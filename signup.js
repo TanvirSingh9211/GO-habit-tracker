@@ -6,6 +6,10 @@ function saveData(){
 
 const form  = document.getElementById("userForm");
 
+form.addEventListener('input',()=>{
+    let p = document.getElementById("errormsg");
+    p.textContent = "";
+});
 form.addEventListener('submit',(event)=>{
     event.preventDefault();
     if(validateForm()) {
@@ -18,6 +22,26 @@ form.addEventListener('submit',(event)=>{
     }
 
 });
+
+document.getElementById("passbtn").addEventListener('click',(event)=>{
+    let btn = event.target;
+    const pass = document.getElementById("password");
+    if(pass.type === "password"){
+        btn.textContent = "visibility";
+        pass.type  = "text";
+    }
+    else {
+        btn.textContent = "visibility_off";
+        pass.type  = "password";
+    }
+});
+
+document.querySelector(".pass-container").addEventListener("mouseleave",()=>{
+    let btn = document.getElementById("passbtn");
+    let pass = document.getElementById("password");
+    btn.textContent = "visibility_off";
+    pass.type = "password";
+})
 
 function deleteData() {
     localStorage.clear();

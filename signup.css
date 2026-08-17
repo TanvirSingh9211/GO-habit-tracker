@@ -73,6 +73,7 @@ body {
     width: 15rem;
 
     padding: 5px;
+    padding-left: 0.5rem;
 
     border-radius: 16px;
     /* border: var(--field-border); */
@@ -141,12 +142,13 @@ body {
     height: 40px;
     border: 1px solid black;
    
-    padding: 5px;
+    padding: 10px;
   
 }
 
 #errormsg {
     font-size: x-small;
+    font-weight: bold;
     color: red;
     height: 4px;
 }
@@ -163,4 +165,50 @@ body {
     color: green;
     font-size: medium;
     font-weight: bold;
+}
+
+.pass-container input {
+    margin: 0 !important;
+    width: 13rem !important;
+    height: 1.5rem !important;
+    padding-left: 0 !important;
+
+}
+.pass-container input:focus,.pass-container input:hover{
+    border: none !important;
+    transform: scale(1) !important;
+   
+}
+.pass-container {
+    background-color: white;
+    display: flex;
+    margin: 10px;
+    height: 2rem;
+    width: 15rem;
+    padding: 0.3rem;
+    border-radius: 16px;
+}
+
+.pass-container:hover {
+    transform: scale(1.05);
+    transition: 0.1s ease-in-out;
+}
+/*nice css property*/
+.pass-container:has(input:focus) { 
+    transform: scale(1.05);
+    transition: ease-in-out;
+    border: 1px solid purple;
+}
+.pass-btn {
+    border: none;
+    background-color: white;
+    border-radius:50% ;
+}
+.pass-btn:hover{
+    background-color: rgb(238, 232, 232);
+}
+
+.material-icons {
+    font-size: 20px;
+    color: gray ;
 }
