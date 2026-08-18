@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+body {
+    font-family: 'Poppins' ,sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*ensures that element is at is least 100% hieght of vh , but it can also grow as content exceeds*/
+    /*used to place an element at center vertically*/
+    min-height: 100vh;  
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px black solid;
+    
+}
+
+.form-container > form {
+    display: flex;
+    flex-direction: column;
+}

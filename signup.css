@@ -63,7 +63,7 @@ body {
 .form-container > form {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    
     
 }
 
@@ -140,7 +140,6 @@ body {
 
 .errormsg-container{
     height: 40px;
-    border: 1px solid black;
    
     padding: 10px;
   
@@ -156,7 +155,7 @@ body {
 .success-container {
     position: absolute;
     bottom: 30px;
-    border :1px solid black;
+    
     height: 40px;
     padding: 5px;
 }

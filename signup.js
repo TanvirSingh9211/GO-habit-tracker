@@ -67,6 +67,7 @@ function validateName(){
 
 function validateEmail() {
     let email = document.getElementById("email");
+
     
     return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value)
 }
@@ -116,3 +117,4 @@ function validateForm() {
         p.innerText = "";
     }
 }
+
